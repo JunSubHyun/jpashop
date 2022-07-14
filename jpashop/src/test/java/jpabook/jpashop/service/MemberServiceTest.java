@@ -37,7 +37,6 @@ public class MemberServiceTest {
         //when
         Long saveId = memberService.join(member);
 
-
         //then
         em.flush();
         assertEquals(member, memberRepository.findOne(saveId));
@@ -67,5 +66,6 @@ public class MemberServiceTest {
         fail("예외가 발생해야 한다.");
 
     }
+
 
 }
