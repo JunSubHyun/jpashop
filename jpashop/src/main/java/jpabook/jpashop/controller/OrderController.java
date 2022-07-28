@@ -2,7 +2,7 @@ package jpabook.jpashop.controller;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderSearch;
+import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.service.ItemService;
 import jpabook.jpashop.service.MemberService;
@@ -38,11 +38,12 @@ public class OrderController {
     public String order(@RequestParam("memberId") Long memberId, @RequestParam("itemId") Long itemId, @RequestParam("count") int count){
 
         orderService.order(memberId, itemId, count);
-        return "redirect:/order";
+        return "redirect:/orders";
     }
 
+
     @GetMapping("/orders")
-    public String orderList(@ModelAttribute("orderSearch")OrderSearch orderSearch, Model model){
+    public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
         List<Order> orders = orderService.findOrders(orderSearch);
         model.addAttribute("orders", orders);
 
