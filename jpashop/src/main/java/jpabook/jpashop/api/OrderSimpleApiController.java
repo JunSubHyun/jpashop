@@ -62,15 +62,6 @@ public class OrderSimpleApiController {
         return orderRepository.findOrderDtos();
     }
 
-    @GetMapping("/api/vtest/simple-orders")
-    public List<SimpleOrderDto> ordersVtest(){
-        List<Order> orders = orderRepository.findAllWithMemberDeliveryTest();
-        List<SimpleOrderDto> result = orders.stream()
-                .map(o -> new SimpleOrderDto(o))
-                .collect(Collectors.toList());
-        return result;
-    }
-
     @Data
     static class SimpleOrderDto {
         private Long orderId;

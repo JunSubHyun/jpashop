@@ -115,13 +115,6 @@ public class OrderRepository {
                 .getResultList();
     }
 
-    public List<Order> findAllWithMemberDeliveryTest() {
-        return em.createQuery(
-                "select o from Order o"+
-                        " join o.member m"+
-                        " join o.delivery d",Order.class
-        ).getResultList();
-    }
 
 }
 
