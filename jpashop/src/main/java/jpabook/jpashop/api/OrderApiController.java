@@ -1,5 +1,8 @@
 package jpabook.jpashop.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
@@ -21,12 +24,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@Api(tags = {"이거슨 오더"})
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
 
     private final OrderQueryRepository orderQueryRepository;
 
+    @ApiOperation(value = "기본 주문 내역", notes = "주문 내역을 조회한다.")
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1(){
         List<Order> all = orderRepository.findAllByString(new OrderSearch());
@@ -69,8 +74,9 @@ public class OrderApiController {
         return result;
     }
 
+    
     @GetMapping("/api/v3.1/orders")
-    public List<OrderDto> orderV3_page(@RequestParam(value = "offset", defaultValue = "0") int offset, @RequestParam(value = "limit", defaultValue = "100") int limit){
+    public List<OrderDto> orderV3_page(@ApiParam(value = "오프셋", required = true) @RequestParam(value = "offset", defaultValue = "0") int offset, @RequestParam(value = "limit", defaultValue = "100") int limit){
         List<Order> orders = orderRepository.findAllWithMemberDelivery(offset,limit);
 
         for (Order order : orders) {
